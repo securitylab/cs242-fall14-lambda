@@ -1,0 +1,17 @@
+{
+  "name": "lambda.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "adt" : "~0.7.2",
+    "parsimmon" : "~0.5.1",
+    "set" : "~1.1.1",
+    "util-is" : "~0.1.0"
+  },
+  "author": "Deian Stefan <deian@cs.stanford.edu> (http://deian.net/)",
+  "license": "MIT"
+}

@@ -1,0 +1,92 @@
+<html>
+  <body>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//rawgithub.com/Upstatement/jquery-total-storage/master/jquery.total-storage.js"></script>
+    <script src="//securitylab.github.io/cs242-fall14-lambda/bundle.js"></script>
+    <script src="//securitylab.github.io/cs242-fall14-lambda/client/bundle.js"></script>
+    <!-- <textarea id="prelude" cols="100" rows="20"></textarea> -->
+    (Tip: input is rlwrap-enabled, so command history works)
+    <div style="width:40em;">
+    <textarea id="output" type="text" readonly style="width:100%;" rows="20" wrap="off"></textarea><br>
+    <input id="input" type="text" style="width:100%"><br>
+    <script>
+
+// Write your code here, if you're doing development in the browser
+
+var Expr = require('./expr');
+var Set = require('set');
+
+Expr.prototype.fv = function() {
+    throw new Error("fv not implemented yet");
+};
+
+Expr.prototype.subst = function(name, exp) {
+    throw new Error("subst not implemented yet");
+};
+
+Expr.prototype.normalize = function() {
+    throw new Error("normalize not implemented yet");
+};
+
+// You're welcome to code up a mini-test harness for your code
+
+// Support code below here, you don't have to look at this!
+
+var input = $("#input");
+var output = $("#output");
+
+function run(e) {
+    // terminal style emulation
+    if (e.keyCode == 38) { // up
+        input.val((input, upHistory(input.val())));
+        return false;
+    }
+    if (e.keyCode == 40) { // down
+        input.val((input, downHistory(input.val())));
+        return false;
+    }
+
+    // OK, we actually need to process it
+    if (e.keyCode != 13) { // enter
+        return;
+    }
+    output.append(">>> " + input.val() + "\n");
+    var val = input.val();
+
+    // Don't do anything if it's an empty command
+    if (val == "") {
+        return;
+    }
+    addHistory(input.val());
+
+    var expr;
+
+    // Parse it
+    try {
+        expr = Expr.parse(val);
+    } catch (err) {
+        output.append(err + "\n");
+        return;
+    }
+
+    // FV it
+    try {
+        output.append("free variables: " + expr.fv().get() + "\n");
+    } catch (err) {
+        output.append(err + "\n");
+    }
+
+    // Normalize it
+    try {
+        output.append(expr.normalize().pretty() + "\n");
+    } catch (err) {
+        output.append(err + "\n");
+    }
+
+    // Makes it stronger
+    input.val("");
+}
+input.keydown(run);
+    </script>
+  </body>
+</html>
