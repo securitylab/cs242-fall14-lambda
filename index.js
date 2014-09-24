@@ -3,6 +3,7 @@ var Expr = require('./lib/expr');
 
 
 var lines = fs.readFileSync(process.argv[2], 'utf8').split(/\n/);
+lines = lines.filter(function(n){ return n !== "" });
 lines.forEach(function (line, no) {
   try {
     var e = Expr.parse(line);
