@@ -1,8 +1,35 @@
 var fs   = require('fs');
 var Expr = require('./lib/expr');
 
+function usage() {
+  var s = "\
+Usage: \n\
+    node index.js normalization_strategy input_file \n\
+\n\
+normalization_strategy can be either of\n\
+    * cbv, Call by Value\n\
+    * cbn, Call by Name\n\
+\n\
+Example: \n\
+    node index.js cbv example.lc \n\
+    node index.js cbn example.lc \n";
+  process.stderr.write(s);
+  process.exit(1);
+}
 
-var lines = fs.readFileSync(process.argv[2], 'utf8').split(/\n/);
+if (process.argv.length != 4) {
+  usage();
+}
+
+if (process.argv[2] == 'cbv') {
+  var strategy = Expr.Strategy.CALL_BY_VALUE;
+} else if (process.argv[2] = 'cbn') {
+  var strategy = Expr.Strategy.CALL_BY_NAME;
+} else {
+  usage();
+}
+
+var lines = fs.readFileSync(process.argv[3], 'utf8').split(/\n/);
 lines = lines.filter(function(n){ return n !== "" });
 lines.forEach(function (line, no) {
   try {
@@ -11,5 +38,6 @@ lines.forEach(function (line, no) {
     console.log((no+1) + ': ' + e)
     return;
   }
-  console.log((no+1) + ': ' + e.pretty() + ' => ' + e.normalize().pretty());
+  console.log((no+1) + ': ' + e.pretty() + ' => ' +
+      e.normalize(strategy).pretty());
 });
