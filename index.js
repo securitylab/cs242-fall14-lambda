@@ -25,9 +25,9 @@ if (process.argv.length != 4) {
 }
 
 if (process.argv[2] == 'cbv') {
-  var strategy = Expr.Strategy.CALL_BY_VALUE;
+  var strategy = 'cbv'
 } else if (process.argv[2] = 'cbn') {
-  var strategy = Expr.Strategy.CALL_BY_NAME;
+  var strategy = 'cbn'
 } else {
   usage();
 }
@@ -41,6 +41,9 @@ lines.forEach(function (line, no) {
     console.log((no+1) + ': ' + e)
     return;
   }
-  console.log((no+1) + ': ' + e.pretty() + ' => ' +
-      e.normalize(strategy).pretty());
+  if (strategy == 'cbv') {
+    console.log((no+1) + ': ' + e.pretty() + ' => ' + e.normalizeCBV().pretty());
+  } else if (strategy == 'cbn') {
+    console.log((no+1) + ': ' + e.pretty() + ' => ' + e.normalizeCBN().pretty());
+  }
 });
