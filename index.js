@@ -1,3 +1,6 @@
+// here is a sample runner for loading up your lambda expressions
+// from a file and running them all
+
 var fs   = require('fs');
 var Expr = require('./lib/expr');
 
