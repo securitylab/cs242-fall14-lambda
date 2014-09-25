@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env nodejs
 
 var repl = require("repl");
 var cli = repl.start(">>> ");
