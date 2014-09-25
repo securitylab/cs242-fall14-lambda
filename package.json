@@ -9,8 +9,8 @@
   "dependencies": {
     "adt" : "~0.7.2",
     "parsimmon" : "~0.5.1",
-    "set" : "~1.1.1",
-    "util-is" : "~0.1.0"
+    "util-is" : "~0.1.0",
+    "immutable": "~2.0.17"
   },
   "author": "Deian Stefan <deian@cs.stanford.edu> (http://deian.net/)",
   "license": "MIT"
